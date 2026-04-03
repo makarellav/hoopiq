@@ -1,0 +1,24 @@
+services:
+  ingest:
+    build: .
+    depends_on:
+      - db
+    env_file:
+      - .env
+
+  db:
+    image: postgres:18
+    env_file:
+      - .env
+    volumes:
+      - nba_postgres_data:/var/lib/postgresql
+    ports:
+      - 5432:5432
+
+  adminer:
+    image: adminer
+    ports:
+      - 8080:8080
+
+volumes:
+  nba_postgres_data:
